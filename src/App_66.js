@@ -23,7 +23,7 @@ const App_66 = () => {
       showAlert(true, 'value changed', 'success');
       const newItem = {
         id: new Date().getTime().toString(),
-        title: name
+        title: name,
       };
       setList([...list, newItem]);
       setName('');
@@ -32,20 +32,28 @@ const App_66 = () => {
 
   return (
   <>
-    <section className="section-center">
-      <form className="grocery-form" onSubmit={handleSubmit}>
+    <section className='section-center'>
+      <form className='grocery-form' onSubmit={handleSubmit}>
+        { alert.show && <Alert_66 {...alert} removeAlert={showAlert} />}
         <h3>Grocery Bud - 208410166</h3>
-        <div className="form-control">
+        <div className='form-control'>
           <input 
-          type="text" 
-          className="grocery" 
-          placeholder='e.g. eggs' 
-          value={name} onChange=
-          {(e) => {setName(e.target.value)}} />
-          <button type="submit" className="submit-btn">submit</button>
+            type='text'
+            className='grocery'
+            placeholder='e.g. eggs' 
+            value={name} 
+            onChange={(e) => {
+              setName(e.target.value)
+            }} />
+          <button type='submit' className='submit-btn'>submit</button>
         </div>
       </form>
-      
+      { list.length > 0 && (
+        <div className='grocery-container'>
+          <List_66 items={list} />
+          <button className='clear-btn'>clear items</button>
+        </div>
+      ) }
     </section>
   </>
   )
