@@ -1,13 +1,54 @@
-import React from 'react';
-import T31_66 from './tutorial/3-conditional-rendering/T31_66-multiple-returns';
+import React, { useState, useEffect } from 'react'
+import List_66 from './components/List_66'
+import Alert_66 from './components/Alert_66'
 
 const App_66 = () => {
-  return (
-    <div className='container'>
-      <h2>Tutorial 31 - 208410166</h2>
-      <T31_66 />
-    </div>
-  );
-};
+  const [name, setName] = useState('');
+  const [list, setList] = useState([]);
+  const [alert, setAlert] = useState({
+    show: false,
+    msg: '',
+    type: '',
+  });
 
-export default App_66;
+  const showAlert = (show = false, msg = '', type= '') => {
+    setAlert({ show, msg, type });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!name){
+      showAlert(true, 'please enter value', 'danger');
+    } else {
+      showAlert(true, 'value changed', 'success');
+      const newItem = {
+        id: new Date().getTime().toString(),
+        title: name
+      };
+      setList([...list, newItem]);
+      setName('');
+    };
+  };
+
+  return (
+  <>
+    <section className="section-center">
+      <form className="grocery-form" onSubmit={handleSubmit}>
+        <h3>Grocery Bud - 208410166</h3>
+        <div className="form-control">
+          <input 
+          type="text" 
+          className="grocery" 
+          placeholder='e.g. eggs' 
+          value={name} onChange=
+          {(e) => {setName(e.target.value)}} />
+          <button type="submit" className="submit-btn">submit</button>
+        </div>
+      </form>
+      
+    </section>
+  </>
+  )
+}
+
+export default App_66
